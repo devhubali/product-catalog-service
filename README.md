@@ -1,1 +1,3 @@
-# java-capstone-project
+# Product Catalog Service
+
+![ERD](images/ERD.png)
