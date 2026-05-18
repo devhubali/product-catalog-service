@@ -1,4 +1,4 @@
-package com.catalogiq.common.response;
+package com.catalog.common.response;
 
 import java.time.LocalDateTime;
 
