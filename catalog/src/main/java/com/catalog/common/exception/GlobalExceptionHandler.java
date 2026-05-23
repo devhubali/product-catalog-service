@@ -71,6 +71,18 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Handles invalid business logic requests from the client.
+     *
+     * Example:
+     * Wrong current password when trying to change password.
+     */
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ApiResponse<Void>> handleBadRequest(BadRequestException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ApiResponse.failure(ex.getMessage()));
+    }
+
+    /**
      * Handles wrong login credentials.
      *
      * This avoids exposing whether the email or password was wrong.
