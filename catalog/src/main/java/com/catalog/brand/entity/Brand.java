@@ -25,7 +25,7 @@ public class Brand extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String slug;
 
     @Column(columnDefinition = "TEXT")
