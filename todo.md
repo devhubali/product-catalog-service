@@ -184,9 +184,9 @@
 ## Docker & Deployment
 - [ ] Create `Dockerfile`
 - [ ] Create `docker-compose.yml`
-- [ ] Add PostgreSQL service to Docker Compose
-- [ ] Add app service to Docker Compose
-- [ ] Configure app to use docker profile
+- [x] Add PostgreSQL service to Docker Compose
+- [x] Add app service to Docker Compose
+- [x] Configure app to use docker profile
 - [ ] Test app starts locally without Docker
 - [ ] Test app starts using Docker Compose
 
