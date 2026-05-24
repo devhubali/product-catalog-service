@@ -28,7 +28,7 @@ public class BrandServiceImpl implements BrandService{
 
     @Override
     public List<BrandResponse> getAllActiveBrands() {
-        return brandRepository.findAllByStatus(BrandStatus.ACTIVE).stream().map(BrandResponse::from).toList();
+        return brandRepository.findByStatus(BrandStatus.ACTIVE).stream().map(BrandResponse::from).toList();
     }
 
     @Override

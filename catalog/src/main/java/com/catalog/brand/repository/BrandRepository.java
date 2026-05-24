@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface BrandRepository extends JpaRepository<Brand, UUID> {
-    List<Brand> findAllByStatus(BrandStatus status);
+    List<Brand> findByStatus(BrandStatus status);
 
     Optional<Brand> findBySlug(String slug);
 

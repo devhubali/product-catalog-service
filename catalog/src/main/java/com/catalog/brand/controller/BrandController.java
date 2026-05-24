@@ -20,12 +20,12 @@ public class BrandController {
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<BrandResponse>>> getAllActiveBrands(){
-        return ResponseEntity.ok(ApiResponse.failure("Not implemented yet"));
+        return ResponseEntity.ok(ApiResponse.success(brandService.getAllActiveBrands()));
     }
 
     @GetMapping("/{slug}")
     public ResponseEntity<ApiResponse<BrandResponse>> getBrandBySlug(@PathVariable String slug){
-        return ResponseEntity.ok(ApiResponse.failure("Not implemented yet"));
+        return ResponseEntity.ok(ApiResponse.success(brandService.getBrandBySlug(slug)));
     }
 
 
