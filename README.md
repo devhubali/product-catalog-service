@@ -31,6 +31,21 @@ java -jar target/catalog-0.0.1-SNAPSHOT.jar
 - **Email:** `admin@catalog.com`
 - **Password:** `admin123`
 
+### Note for testers — Resend API key
+
+> The `resend.api-key` in `application-dev.properties` is set to the project owner's key.
+> **Replace it with your own key before testing email features** (registration verification email, forgot password).
+>
+> 1. Create a free account at [resend.com](https://resend.com)
+> 2. Generate an API key from the dashboard
+> 3. Update `application-dev.properties`:
+>    ```properties
+>    resend.api-key=re_YOUR_KEY_HERE
+>    resend.from-address=onboarding@resend.dev
+>    ```
+> 4. The `onboarding@resend.dev` sender only delivers to the email address registered on your Resend account.
+>    To send to any address, add and verify a custom domain in the Resend dashboard.
+
 ---
 
 ## API Routes
