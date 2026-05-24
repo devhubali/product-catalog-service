@@ -4,6 +4,24 @@ A REST API service for managing and retrieving a product catalog, built with Spr
 
 ---
 
+## General Approach
+
+The codebase is organised around a feature-based package structure, each domain (auth, brand, category, product, variant, attribute, image) lives in its own package and owns its full vertical slice: entity, repository, DTOs, service interface, service implementation, and controller. This keeps related code together and makes each feature easy to navigate independently.
+
+The design follows a strict separation of concerns. Controllers only handle HTTP concerns (request mapping, validation, response wrapping). All business logic lives in service implementations, which are hidden behind interfaces to keep consumers decoupled and testable. JPA repositories handle persistence, and a shared `BaseEntity` provides `id`, `createdAt`, and `updatedAt` to every entity via Spring Data auditing.
+
+Security uses a stateless JWT filter chain. A custom `JwtAuthenticationFilter` intercepts every request, validates the token, and populates the `SecurityContext`. Route access is declared centrally in `SecurityConfig` using `permitAll`, `authenticated`, and `hasRole("ADMIN")` rules. Email verification adds a pre-login gate, users must confirm their address before a JWT is issued.
+
+---
+
+## Unsolved Problems
+
+- **Email sender restriction** — Resend's `onboarding@resend.dev` address can only send to the account owner's email. A custom verified domain is needed to send to any address.
+- **No refresh tokens** — JWT tokens expire after 24 hours and there is no refresh mechanism. Users must log in again after expiry.
+- **Images are stored locally** — uploaded files are saved to the server's filesystem. This means images are lost if the container is restarted without a mounted volume, and does not scale across multiple instances.
+
+---
+
 ## Tech Stack
 
 - Java 17, Spring Boot 4.0.6
@@ -21,10 +39,21 @@ A REST API service for managing and retrieving a product catalog, built with Spr
 mvn spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
+### Run with Docker Compose (port 5000)
+```bash
+docker-compose up --build
+```
+This starts the app and a PostgreSQL container. The app will be available at `http://localhost:5000`.
+
 ### Build JAR
 ```bash
 mvn clean package -DskipTests
 java -jar target/catalog-0.0.1-SNAPSHOT.jar
+```
+
+### Run tests
+```bash
+mvn test
 ```
 
 ### Default credentials (seeded on startup)
@@ -120,9 +149,10 @@ java -jar target/catalog-0.0.1-SNAPSHOT.jar
 
 ---
 
-## Task Management
+## Documentation
 
-Development tasks were tracked in [`todo.md`](todo.md).
+- [User Stories](USER_STORIES.md)
+- [Task Planning](todo.md)
 
 ---
 
