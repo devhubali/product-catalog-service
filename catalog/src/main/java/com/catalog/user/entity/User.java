@@ -12,6 +12,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,11 +55,33 @@ public class User extends BaseEntity {
     private UserStatus status;
 
     /**
-     * Roles determine what the user is allowed to do.
-     *
-     * EAGER loading is used here because we need roles immediately
-     * when loading the user for authentication.
+     * Whether the user has verified their email address.
+     * Users cannot log in until this is true.
      */
+    @Column(name = "email_verified", nullable = false)
+    private boolean emailVerified = false;
+
+    /**
+     * One-time token sent to the user's email for account verification.
+     * Cleared once the user verifies their email.
+     */
+    @Column(name = "email_verification_token")
+    private String emailVerificationToken;
+
+    /**
+     * One-time token sent to the user's email for password recovery.
+     * Cleared after a successful password reset.
+     */
+    @Column(name = "password_reset_token")
+    private String passwordResetToken;
+
+    /**
+     * Expiry timestamp for the password reset token.
+     * Reset requests older than this time are rejected.
+     */
+    @Column(name = "password_reset_token_expires_at")
+    private LocalDateTime passwordResetTokenExpiresAt;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -123,5 +146,37 @@ public class User extends BaseEntity {
      */
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    public boolean isEmailVerified() {
+        return emailVerified;
+    }
+
+    public void setEmailVerified(boolean emailVerified) {
+        this.emailVerified = emailVerified;
+    }
+
+    public String getEmailVerificationToken() {
+        return emailVerificationToken;
+    }
+
+    public void setEmailVerificationToken(String emailVerificationToken) {
+        this.emailVerificationToken = emailVerificationToken;
+    }
+
+    public String getPasswordResetToken() {
+        return passwordResetToken;
+    }
+
+    public void setPasswordResetToken(String passwordResetToken) {
+        this.passwordResetToken = passwordResetToken;
+    }
+
+    public LocalDateTime getPasswordResetTokenExpiresAt() {
+        return passwordResetTokenExpiresAt;
+    }
+
+    public void setPasswordResetTokenExpiresAt(LocalDateTime passwordResetTokenExpiresAt) {
+        this.passwordResetTokenExpiresAt = passwordResetTokenExpiresAt;
     }
 }

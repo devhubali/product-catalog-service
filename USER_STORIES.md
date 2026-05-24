@@ -1,6 +1,6 @@
 # User Stories — Implemented & MVC Tested
 
-The following user stories are implemented and verified by MockMvc unit tests in the `src/test` directory.
+The following user stories are implemented. Email verification and password reset are implemented but not covered by MockMvc tests (noted where applicable).
 
 ---
 
@@ -93,3 +93,47 @@ The following user stories are implemented and verified by MockMvc unit tests in
 
 - `DELETE /api/v1/admin/categories/{id}` returns `200 OK` when the category is successfully deleted
 - `DELETE /api/v1/admin/categories/{id}` returns `404 Not Found` when the category does not exist
+
+---
+
+## Authentication
+
+**US-A01 — Register an account**
+> As a visitor, I want to register a new account so that I can access the platform.
+
+- `POST /api/v1/auth/register` returns `201 Created` with a JWT token when the request is valid
+- `POST /api/v1/auth/register` returns `409 Conflict` when the email is already taken
+- A verification email is sent to the registered address on successful registration
+- The user cannot log in until their email is verified
+
+**US-A02 — Verify email address** _(implemented, no MockMvc test)_
+> As a newly registered user, I want to verify my email address so that I can activate my account and log in.
+
+- `GET /api/v1/auth/verify-email?token=<token>` returns `200 OK` and activates the account when the token is valid
+- `GET /api/v1/auth/verify-email?token=<token>` returns `400 Bad Request` when the token is invalid or already used
+
+**US-A03 — Log in**
+> As a verified user, I want to log in with my email and password so that I receive a JWT token to access protected routes.
+
+- `POST /api/v1/auth/login` returns `200 OK` with a JWT token when credentials are valid
+- `POST /api/v1/auth/login` returns `400 Bad Request` when the email is not yet verified
+- `POST /api/v1/auth/login` returns `401 Unauthorized` when credentials are wrong
+
+**US-A04 — Forgot password** _(implemented, no MockMvc test)_
+> As a user who forgot their password, I want to receive a password reset link by email so that I can recover my account.
+
+- `POST /api/v1/auth/forgot-password` returns `200 OK` regardless of whether the email exists (to prevent account enumeration)
+- A reset link containing a token is sent if the email matches an account
+- The reset token expires after 15 minutes
+
+**US-A05 — Reset password** _(implemented, no MockMvc test)_
+> As a user with a reset token, I want to set a new password so that I can regain access to my account.
+
+- `POST /api/v1/auth/reset-password` returns `200 OK` when the token is valid and not expired
+- `POST /api/v1/auth/reset-password` returns `400 Bad Request` when the token is invalid or expired
+
+**US-A06 — Change password**
+> As an authenticated user, I want to change my password so that I can keep my account secure.
+
+- `POST /api/v1/auth/change-password` returns `200 OK` when the current password is correct
+- `POST /api/v1/auth/change-password` returns `400 Bad Request` when the current password is wrong

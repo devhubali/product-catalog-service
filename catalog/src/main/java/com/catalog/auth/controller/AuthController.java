@@ -2,8 +2,10 @@ package com.catalog.auth.controller;
 
 import com.catalog.auth.dto.AuthResponse;
 import com.catalog.auth.dto.ChangePasswordRequest;
+import com.catalog.auth.dto.ForgotPasswordRequest;
 import com.catalog.auth.dto.LoginRequest;
 import com.catalog.auth.dto.RegisterRequest;
+import com.catalog.auth.dto.ResetPasswordRequest;
 import com.catalog.auth.dto.UserResponse;
 import com.catalog.auth.service.AuthService;
 import com.catalog.common.response.ApiResponse;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -23,6 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
  * Public routes (no token needed):
  * - POST /api/v1/auth/register
  * - POST /api/v1/auth/login
+ * - GET  /api/v1/auth/verify-email
+ * - POST /api/v1/auth/forgot-password
+ * - POST /api/v1/auth/reset-password
  *
  * Protected routes (token required):
  * - GET  /api/v1/auth/me
@@ -88,5 +94,46 @@ public class AuthController {
     ) {
         authService.changePassword(authentication.getName(), request);
         return ResponseEntity.ok(ApiResponse.success("Password changed successfully", null));
+    }
+
+    /**
+     * Verifies the user's email address using the token from the verification link.
+     *
+     * The token is sent to the user's email on registration.
+     * Once verified, the user can log in.
+     *
+     * @param token The one-time verification token from the email link.
+     */
+    @GetMapping("/verify-email")
+    public ResponseEntity<ApiResponse<Void>> verifyEmail(@RequestParam String token) {
+        authService.verifyEmail(token);
+        return ResponseEntity.ok(ApiResponse.success("Email verified successfully. You can now log in.", null));
+    }
+
+    /**
+     * Sends a password reset link to the provided email address.
+     *
+     * If the email does not match any account, the response is still 200
+     * to avoid leaking whether an account exists.
+     *
+     * @param request Contains the email address of the account to recover.
+     */
+    @PostMapping("/forgot-password")
+    public ResponseEntity<ApiResponse<Void>> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        authService.forgotPassword(request);
+        return ResponseEntity.ok(ApiResponse.success("If an account with that email exists, a reset link has been sent.", null));
+    }
+
+    /**
+     * Resets the user's password using the token from the reset email.
+     *
+     * The token expires 15 minutes after the forgot-password request.
+     *
+     * @param request Contains the reset token and the new password.
+     */
+    @PostMapping("/reset-password")
+    public ResponseEntity<ApiResponse<Void>> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        authService.resetPassword(request);
+        return ResponseEntity.ok(ApiResponse.success("Password reset successfully. You can now log in.", null));
     }
 }

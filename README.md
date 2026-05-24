@@ -10,6 +10,7 @@ A REST API service for managing and retrieving a product catalog, built with Spr
 - PostgreSQL (AWS RDS)
 - Spring Security 7 + JWT
 - Lombok, Jakarta Validation
+- Resend (transactional email)
 
 ---
 
@@ -40,6 +41,9 @@ java -jar target/catalog-0.0.1-SNAPSHOT.jar
 |---|---|---|
 | POST | `/api/v1/auth/register` | Public |
 | POST | `/api/v1/auth/login` | Public |
+| GET | `/api/v1/auth/verify-email?token=` | Public |
+| POST | `/api/v1/auth/forgot-password` | Public |
+| POST | `/api/v1/auth/reset-password` | Public |
 | GET | `/api/v1/auth/me` | JWT |
 | POST | `/api/v1/auth/change-password` | JWT |
 

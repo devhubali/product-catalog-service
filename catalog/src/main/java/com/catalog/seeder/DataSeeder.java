@@ -91,6 +91,7 @@ public class DataSeeder implements ApplicationRunner {
         admin.setEmail(adminEmail);
         admin.setPassword(passwordEncoder.encode("admin123"));
         admin.setStatus(UserStatus.ACTIVE);
+        admin.setEmailVerified(true);
         admin.getRoles().add(adminRole);
 
         userRepository.save(admin);

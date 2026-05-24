@@ -85,6 +85,13 @@
 			<version>42.7.2</version>
 		</dependency>
 
+		<!-- Resend Email SDK -->
+		<dependency>
+			<groupId>com.resend</groupId>
+			<artifactId>resend-java</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+
 		<!-- Testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
