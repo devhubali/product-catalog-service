@@ -11,11 +11,13 @@ import com.catalog.product.entity.Product;
 import com.catalog.product.enums.ProductStatus;
 import com.catalog.product.dto.ProductResponse;
 import com.catalog.product.repository.ProductRepository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final BrandRepository brandRepository;
@@ -32,21 +34,21 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public List<ProductResponse> getAllProducts() {
-        return productRepository.findAllWithBrandAndCategory()
+        return productRepository.findAll()
                 .stream().map(ProductResponse::from).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<ProductResponse> getAllActiveProducts() {
-        return productRepository.findByStatusWithBrandAndCategory(ProductStatus.ACTIVE)
+        return productRepository.findByStatus(ProductStatus.ACTIVE)
                 .stream().map(ProductResponse::from).toList();
     }
 
     @Override
     @Transactional(readOnly = true)
     public ProductResponse getProductBySlug(String slug) {
-        Product product = productRepository.findBySlugWithBrandAndCategory(slug)
+        Product product = productRepository.findBySlug(slug)
                 .orElseThrow(() -> ResourceNotFoundException.of("Product", slug));
         return ProductResponse.from(product);
     }

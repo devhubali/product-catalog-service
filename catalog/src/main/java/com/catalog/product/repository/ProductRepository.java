@@ -21,9 +21,4 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     List<Product> findByCategoryId(UUID categoryId);
 
-    List<Product> findAllWithBrandAndCategory();
-
-    List<Product> findByStatusWithBrandAndCategory(ProductStatus status);
-
-    Optional<Product> findBySlugWithBrandAndCategory(String slug);
 }
