@@ -5,6 +5,7 @@ import com.catalog.category.dto.CategoryResponse;
 import com.catalog.category.entity.Category;
 import com.catalog.category.enums.CategoryStatus;
 import com.catalog.category.repository.CategoryRepository;
+import com.catalog.common.exception.DuplicateResourceException;
 import com.catalog.common.exception.ResourceNotFoundException;
 import com.catalog.common.util.SlugUtil;
 import org.springframework.stereotype.Service;
@@ -23,16 +24,19 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CategoryResponse> getAllCategories() {
         return categoryRepository.findAll().stream().map(CategoryResponse::from).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<CategoryResponse> getAllActiveCategories() {
         return categoryRepository.findAllByStatus(CategoryStatus.ACTIVE).stream().map(CategoryResponse::from).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CategoryResponse getCategoryBySlug(String slug) {
         Category category = categoryRepository.findBySlug(slug)
                 .orElseThrow(() -> ResourceNotFoundException.of("Category", slug));
@@ -42,11 +46,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryResponse createCategory(CategoryRequest request) {
+        String slug = SlugUtil.toSlug(request.name());
+        if (categoryRepository.existsBySlug(slug)) {
+            throw DuplicateResourceException.of("Category", "name", request.name());
+        }
         Category category = Category.builder()
                 .name(request.name())
                 .description(request.description())
                 .imageUrl(request.imageUrl())
-                .slug(SlugUtil.toSlug(request.name()))
+                .slug(slug)
                 .status(CategoryStatus.ACTIVE)
                 .build();
         return CategoryResponse.from(categoryRepository.save(category));
@@ -59,7 +67,11 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> ResourceNotFoundException.of("Category", id));
 
         if (!category.getName().equals(request.name())) {
-            category.setSlug(SlugUtil.toSlug(request.name()));
+            String newSlug = SlugUtil.toSlug(request.name());
+            if (categoryRepository.existsBySlug(newSlug)) {
+                throw DuplicateResourceException.of("Category", "name", request.name());
+            }
+            category.setSlug(newSlug);
             category.setName(request.name());
         }
 

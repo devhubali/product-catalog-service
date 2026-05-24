@@ -5,6 +5,7 @@ import com.catalog.brand.dto.BrandResponse;
 import com.catalog.brand.entity.Brand;
 import com.catalog.brand.enums.BrandStatus;
 import com.catalog.brand.repository.BrandRepository;
+import com.catalog.common.exception.DuplicateResourceException;
 import com.catalog.common.exception.ResourceNotFoundException;
 import com.catalog.common.util.SlugUtil;
 import org.springframework.stereotype.Service;
@@ -22,16 +23,19 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BrandResponse> getAllBrands() {
         return brandRepository.findAll().stream().map(BrandResponse::from).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<BrandResponse> getAllActiveBrands() {
         return brandRepository.findByStatus(BrandStatus.ACTIVE).stream().map(BrandResponse::from).toList();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public BrandResponse getBrandBySlug(String slug) {
         Brand brand = brandRepository.findBySlug(slug)
                 .orElseThrow(() -> ResourceNotFoundException.of("Brand", slug));
@@ -41,11 +45,15 @@ public class BrandServiceImpl implements BrandService{
     @Override
     @Transactional
     public BrandResponse createBrand(BrandRequest brandRequest) {
+        String slug = SlugUtil.toSlug(brandRequest.name());
+        if (brandRepository.existsBySlug(slug)) {
+            throw DuplicateResourceException.of("Brand", "name", brandRequest.name());
+        }
         Brand brand = Brand.builder()
                 .name(brandRequest.name())
                 .description(brandRequest.description())
                 .logoUrl(brandRequest.logoUrl())
-                .slug(SlugUtil.toSlug(brandRequest.name()))
+                .slug(slug)
                 .status(BrandStatus.ACTIVE)
                 .build();
         return BrandResponse.from(brandRepository.save(brand));
@@ -58,7 +66,11 @@ public class BrandServiceImpl implements BrandService{
                 .orElseThrow(() -> ResourceNotFoundException.of("Brand", id));
 
         if (!brand.getName().equals(brandRequest.name())) {
-            brand.setSlug(SlugUtil.toSlug(brandRequest.name()));
+            String newSlug = SlugUtil.toSlug(brandRequest.name());
+            if (brandRepository.existsBySlug(newSlug)) {
+                throw DuplicateResourceException.of("Brand", "name", brandRequest.name());
+            }
+            brand.setSlug(newSlug);
             brand.setName(brandRequest.name());
         }
 
