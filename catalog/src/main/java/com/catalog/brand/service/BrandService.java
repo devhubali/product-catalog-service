@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface BrandService {
     List<BrandResponse> getAllBrands();
+    List<BrandResponse> getAllActiveBrands();
     BrandResponse getBrandBySlug(String slug);
     BrandResponse createBrand(BrandRequest brandRequest);
     BrandResponse updateBrand(UUID id, BrandRequest brandRequest);
