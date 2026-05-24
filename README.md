@@ -101,5 +101,11 @@ java -jar target/catalog-0.0.1-SNAPSHOT.jar
 
 ---
 
+## Task Management
+
+Development tasks were tracked in [`todo.md`](todo.md).
+
+---
+
 ## ERD
 ![ERD](images/ERD.png)

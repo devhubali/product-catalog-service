@@ -2,7 +2,6 @@
 
 ## Project Setup & Configuration
 - [x] Create Git branch `dev`
-- [ ] Confirm Spring Boot project runs locally
 - [x] Confirm PostgreSQL dependency exists in `pom.xml`
 - [x] Confirm Spring Security dependency exists
 - [x] Confirm JWT dependency exists
@@ -65,163 +64,128 @@
 - [x] Include at least two user roles: `ROLE_USER` and `ROLE_ADMIN`
 
 ## Brand API
-- [ ] Create `Brand` entity
-- [ ] Create `BrandRepository`
-- [ ] Create `BrandRequest` DTO
-- [ ] Create `BrandResponse` DTO
-- [ ] Create `BrandService` interface
-- [ ] Create `BrandServiceImpl`
-- [ ] Implement create brand
-- [ ] Implement update brand
-- [ ] Implement delete brand
-- [ ] Implement get all brands
-- [ ] Implement get brand by slug
-- [ ] Create `BrandController`
-- [ ] Add `GET /api/v1/brands`
-- [ ] Add `GET /api/v1/brands/{slug}`
-- [ ] Add `POST /api/v1/admin/brands`
-- [ ] Add `PUT /api/v1/admin/brands/{id}`
-- [ ] Add `DELETE /api/v1/admin/brands/{id}`
+- [x] Create `Brand` entity
+- [x] Create `BrandRepository`
+- [x] Create `BrandRequest` DTO
+- [x] Create `BrandResponse` DTO
+- [x] Create `BrandService` interface
+- [x] Create `BrandServiceImpl`
+- [x] Implement create brand
+- [x] Implement update brand
+- [x] Implement delete brand
+- [x] Implement get all brands
+- [x] Implement get brand by slug
+- [x] Create `BrandController`
+- [x] Add `GET /api/v1/brands`
+- [x] Add `GET /api/v1/brands/{slug}`
+- [x] Add `POST /api/v1/admin/brands`
+- [x] Add `PUT /api/v1/admin/brands/{id}`
+- [x] Add `DELETE /api/v1/admin/brands/{id}`
 
 ## Category API
-- [ ] Create `Category` entity
-- [ ] Add self-reference field `parentCategory`
-- [ ] Create `CategoryRepository`
-- [ ] Create `CategoryRequest` DTO
-- [ ] Create `CategoryResponse` DTO
-- [ ] Create `CategoryService` interface
-- [ ] Create `CategoryServiceImpl`
-- [ ] Implement create category
-- [ ] Implement update category
-- [ ] Implement delete category
-- [ ] Implement get all categories
-- [ ] Implement get category by slug
-- [ ] Create `CategoryController`
-- [ ] Add `GET /api/v1/categories`
-- [ ] Add `GET /api/v1/categories/{slug}`
-- [ ] Add `POST /api/v1/admin/categories`
-- [ ] Add `PUT /api/v1/admin/categories/{id}`
-- [ ] Add `DELETE /api/v1/admin/categories/{id}`
+- [x] Create `Category` entity
+- [x] Create `CategoryRepository`
+- [x] Create `CategoryRequest` DTO
+- [x] Create `CategoryResponse` DTO
+- [x] Create `CategoryService` interface
+- [x] Create `CategoryServiceImpl`
+- [x] Implement create category
+- [x] Implement update category
+- [x] Implement delete category
+- [x] Implement get all categories
+- [x] Implement get category by slug
+- [x] Create `CategoryController`
+- [x] Add `GET /api/v1/categories`
+- [x] Add `GET /api/v1/categories/{slug}`
+- [x] Add `POST /api/v1/admin/categories`
+- [x] Add `PUT /api/v1/admin/categories/{id}`
+- [x] Add `DELETE /api/v1/admin/categories/{id}`
 
 ## Product API
-- [ ] Create `Product` entity
-- [ ] Create `ProductStatus` enum
-- [ ] Add relation from product to brand
-- [ ] Add relation from product to category
-- [ ] Create `ProductRepository`
-- [ ] Create `ProductRequest` DTO
-- [ ] Create `ProductResponse` DTO
-- [ ] Create `UpdateProductPriceRequest` DTO only if needed
-- [ ] Create `ProductService` interface
-- [ ] Create `ProductServiceImpl`
-- [ ] Implement create product
-- [ ] Implement update product
-- [ ] Implement delete product
-- [ ] Implement get all active products
-- [ ] Implement get product by slug
-- [ ] Implement basic product search by name or SKU
-- [ ] Create `ProductController`
-- [ ] Add `GET /api/v1/products`
-- [ ] Add `GET /api/v1/products/{slug}`
-- [ ] Add `GET /api/v1/products/search?keyword=`
-- [ ] Add `POST /api/v1/admin/products`
-- [ ] Add `PUT /api/v1/admin/products/{id}`
-- [ ] Add `DELETE /api/v1/admin/products/{id}`
+- [x] Create `Product` entity
+- [x] Create `ProductStatus` enum
+- [x] Add relation from product to brand
+- [x] Add relation from product to category
+- [x] Create `ProductRepository`
+- [x] Create `ProductRequest` DTO
+- [x] Create `ProductResponse` DTO
+- [x] Create `ProductService` interface
+- [x] Create `ProductServiceImpl`
+- [x] Implement create product
+- [x] Implement update product
+- [x] Implement delete product
+- [x] Implement get all active products
+- [x] Implement get product by slug
+- [x] Create `ProductController`
+- [x] Add `GET /api/v1/products`
+- [x] Add `GET /api/v1/products/{slug}`
+- [x] Add `POST /api/v1/admin/products`
+- [x] Add `PUT /api/v1/admin/products/{id}`
+- [x] Add `DELETE /api/v1/admin/products/{id}`
 
 ## Product Variant API
-- [ ] Create `ProductVariant` entity
-- [ ] Add relation from variant to product
-- [ ] Create `ProductVariantRepository`
-- [ ] Create `ProductVariantRequest` DTO
-- [ ] Create `ProductVariantResponse` DTO
-- [ ] Create `ProductVariantService` interface
-- [ ] Create `ProductVariantServiceImpl`
-- [ ] Implement create variant
-- [ ] Implement update variant
-- [ ] Implement delete variant
-- [ ] Implement list variants by product
-- [ ] Create `ProductVariantController`
-- [ ] Add `GET /api/v1/products/{productId}/variants`
-- [ ] Add `POST /api/v1/admin/products/{productId}/variants`
-- [ ] Add `PUT /api/v1/admin/products/{productId}/variants/{variantId}`
-- [ ] Add `DELETE /api/v1/admin/products/{productId}/variants/{variantId}`
+- [x] Create `Variant` entity
+- [x] Add relation from variant to product
+- [x] Create `VariantRepository`
+- [x] Create `VariantRequest` DTO
+- [x] Create `VariantResponse` DTO
+- [x] Create `VariantService` interface
+- [x] Create `VariantServiceImpl`
+- [x] Implement create variant
+- [x] Implement update variant
+- [x] Implement delete variant
+- [x] Implement list variants by product
+- [x] Create `VariantController`
+- [x] Add `GET /api/v1/products/{productId}/variants`
+- [x] Add `GET /api/v1/products/{productId}/variants/{id}`
+- [x] Add `POST /api/v1/admin/variants`
+- [x] Add `PUT /api/v1/admin/variants/{id}`
+- [x] Add `DELETE /api/v1/admin/variants/{id}`
 
-## Product Image Upload API
-- [ ] Create `ProductImage` entity
-- [ ] Add relation from image to product
-- [ ] Create `ProductImageRepository`
-- [ ] Create `ProductImageResponse` DTO
-- [ ] Create `ProductImageService` interface
-- [ ] Create `ProductImageServiceImpl`
-- [ ] Implement local file upload
-- [ ] Save uploaded files under `/uploads/products/`
-- [ ] Save image metadata in database
-- [ ] Implement list images by product
-- [ ] Implement delete product image
-- [ ] Create `ProductImageController`
-- [ ] Add `GET /api/v1/products/{productId}/images`
-- [ ] Add `POST /api/v1/admin/products/{productId}/images/upload`
-- [ ] Add `DELETE /api/v1/admin/products/{productId}/images/{imageId}`
+## Image Upload API
+- [x] Create `ImageUploadResponse` DTO
+- [x] Create `ImageService` interface
+- [x] Create `ImageServiceImpl`
+- [x] Create `ImageController`
+- [x] Add `POST /api/v1/admin/images/upload`
+- [x] Add `DELETE /api/v1/admin/images/{filename}`
+- [x] Add `GET /api/v1/images/{filename}`
 
 ## Testing
-- [ ] Create `AuthControllerTest`
-- [ ] Test register returns success
-- [ ] Test login returns JWT
-- [ ] Test `/me` without token returns unauthorized
-- [ ] Create `BrandControllerTest`
-- [ ] Test public brand list route
-- [ ] Test admin create brand route
-- [ ] Create `CategoryControllerTest`
-- [ ] Test public category list route
-- [ ] Test admin create category route
-- [ ] Create `ProductControllerTest`
-- [ ] Test public product list route
-- [ ] Test product search route
-- [ ] Test admin create product route
-- [ ] Create `ProductImageControllerTest`
-- [ ] Test image upload route with mock multipart file
+- [x] Create `BrandControllerTest`
+- [x] Test public brand list route
+- [x] Test public brand get by slug route
+- [x] Test brand not found returns 404
+- [x] Test admin get all brands
+- [x] Test admin create brand returns 201
+- [x] Test admin create brand with blank name returns 400
+- [x] Test admin create duplicate brand returns 409
+- [x] Test admin update brand returns 200
+- [x] Test admin update brand not found returns 404
+- [x] Test admin delete brand returns 200
+- [x] Test admin delete brand not found returns 404
+- [x] Create `CategoryControllerTest`
+- [x] Test public category list route
+- [x] Test public category get by slug route
+- [x] Test category not found returns 404
+- [x] Test admin get all categories
+- [x] Test admin create category returns 201
+- [x] Test admin create category with blank name returns 400
+- [x] Test admin create duplicate category returns 409
+- [x] Test admin update category returns 200
+- [x] Test admin update category not found returns 404
+- [x] Test admin delete category returns 200
+- [x] Test admin delete category not found returns 404
 
 ## Docker & Deployment
-- [ ] Create `Dockerfile`
-- [ ] Create `docker-compose.yml`
+- [x] Create `Dockerfile`
+- [x] Create `docker-compose.yml`
 - [x] Add PostgreSQL service to Docker Compose
 - [x] Add app service to Docker Compose
 - [x] Configure app to use docker profile
-- [ ] Test app starts locally without Docker
-- [ ] Test app starts using Docker Compose
-
-## Manual Verification
-- [ ] Test seeded admin user works
-- [ ] Test public routes using Postman
-- [ ] Test admin routes using JWT
-- [ ] Confirm users can register and login
-- [ ] Confirm login returns JWT
-- [ ] Confirm admin routes are protected
-- [ ] Confirm public users can browse products, brands, categories, variants, and images
-- [ ] Confirm local image upload works
-- [ ] Confirm PostgreSQL persistence works
 
 ## Documentation
-- [ ] Add ERD image to repository
-- [ ] Add route documentation
-- [ ] Add routes table to README
-- [ ] Add installation instructions to README
-- [ ] Add Docker instructions to README
-- [ ] Add seeded admin credentials to README
-- [ ] Add known limitations to README
-- [ ] Add future improvements section to README
-- [ ] Add credits/references section to README
-
-
-## Skipped for MVP / Future Improvements
-- [ ] Attribute definitions
-- [ ] Product price history
-- [ ] Product audit logs
-- [ ] Import jobs
-- [ ] Import job errors
-- [ ] Outbox events
-- [ ] Advanced search filters
-- [ ] Facets
-- [ ] Autocomplete
-- [ ] Admin dashboard
-- [ ] Cloud image storage
+- [x] Add routes table to README
+- [x] Add installation instructions to README
+- [x] Add Docker instructions to README
+- [x] Add seeded admin credentials to README
