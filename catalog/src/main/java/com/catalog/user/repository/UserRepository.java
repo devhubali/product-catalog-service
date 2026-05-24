@@ -29,4 +29,18 @@ public interface UserRepository extends JpaRepository<User, UUID> {
      * Used during registration to prevent duplicate accounts.
      */
     boolean existsByEmail(String email);
+
+    /**
+     * Finds a user by their email verification token.
+     *
+     * Used when processing the verify-email link.
+     */
+    Optional<User> findByEmailVerificationToken(String token);
+
+    /**
+     * Finds a user by their password reset token.
+     *
+     * Used when processing the reset-password request.
+     */
+    Optional<User> findByPasswordResetToken(String token);
 }
